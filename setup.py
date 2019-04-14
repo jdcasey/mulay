@@ -6,10 +6,12 @@ import sys
 with open('README.rst', 'r') as f:
   long_description=f.read()
 
+version='0.0.2'
+
 setup(
     zip_safe=True,
     name='mulay',
-    version='0.0.1',
+    version=version,
     description="Relay / sender library for various bus / consumer types",
     long_description=long_description,
     classifiers=[
