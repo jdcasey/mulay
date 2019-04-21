@@ -8,9 +8,9 @@ DEFAULT_PORT=2023
 class CarbonConfig(object):
     def __init__(self, config_dict):
         self.host = config_dict[HOST]
-        self.port = config_dict[PORT]
+        self.port = config_dict.get(PORT) or DEFAULT_PORT
 
-class PlaintextSender(object):
+class Sender(object):
     def __init__(self, config_dict):
         """Initialize a new Carbon sender that will use the plaintext protocol for sending metrics"""
         self.config = CarbonConfig(config_dict)
@@ -43,7 +43,7 @@ class PlaintextSender(object):
 
     def send_raw(self, line):
         try:
-            self.sock.send(line + "\n")
+            self.sock.send((line + "\n").encode())
         except socket.error:
             self.stop()
             self.start()
