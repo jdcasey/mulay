@@ -9,7 +9,7 @@ DEFAULT_QUEUE = 'mulay'
 class AMQPConfig(object):
     def __init__(self, config_dict):
         self.url = config_dict[URL]
-        self.queue = config.get(QUEUE) or DEFAULT_QUEUE
+        self.queue = config_dict.get(QUEUE) or DEFAULT_QUEUE
 
 class Relay(object):
     def __init__(self, config_dict, sender):
@@ -34,7 +34,7 @@ class Relay(object):
         self.conn.close()
 
 class Sender(object):
-    def __init__(self, config):
+    def __init__(self, config_dict):
         self.config = AMQPConfig(config_dict)
 
     def start(self):
