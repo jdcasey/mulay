@@ -26,14 +26,14 @@ class Relay(object):
         self.chan = self.conn.channel()
 
         self.chan.queue_declare(queue=self.config.queue)
-        self.chan.basic_consume(self.config.queue, lambda (_c, _m, _p, body): self.on_message(body), auto_ack=True)
+        self.chan.basic_consume(self.config.queue, lambda _c, _m, _p, body: self.on_message(body), auto_ack=True)
         self.chan.start_consuming()
 
     def stop(self):
         self.chan.stop_consuming()
         self.conn.close()
 
-class Sender(Connection):
+class Sender(object):
     def __init__(self, config):
         self.config = AMQPConfig(config_dict)
 
